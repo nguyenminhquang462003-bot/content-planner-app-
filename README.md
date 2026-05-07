@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Content Planner App
 
-## Getting Started
+Dashboard theo dõi và phân tích hiệu quả nội dung đa kênh, được xây dựng bằng Claude Code.
 
-First, run the development server:
+## Tính năng
+
+- **Tổng quan** — KPI cards (tổng bài, views, tương tác, kênh hiệu quả nhất) + biểu đồ xu hướng
+- **Quản lý bài đăng** — Thêm / sửa / xóa bài, xem bảng tổng hợp theo kênh
+- **Phân tích hiệu quả** — So sánh kênh, phân bổ loại nội dung, top 10 bài
+- **Tuyến nội dung (Kanban)** — Kéo thả qua 5 giai đoạn: Ý tưởng → Bản nháp → Chờ duyệt → Lên lịch → Đã đăng
+- **Lịch nội dung** — Xem bài đăng theo ngày/tháng, click ngày để xem chi tiết
+- **Cài đặt kênh** — Quản lý kênh, đồng bộ tự động Facebook Fanpage qua Graph API
+- **Xác thực** — Đăng ký / đăng nhập, mỗi user chỉ thấy dữ liệu của mình
+
+## Kênh hỗ trợ
+
+| Kênh | Nhập dữ liệu |
+|---|---|
+| Facebook Fanpage | Tự động qua Facebook Graph API |
+| Facebook Group | Nhập tay |
+| Substack | Nhập tay |
+
+## Tech Stack
+
+- **Frontend & Backend:** Next.js 16 (App Router) + TypeScript
+- **Styling:** Tailwind CSS v4
+- **Database & Auth:** Supabase (PostgreSQL + Row Level Security)
+- **Charts:** Recharts
+- **Drag & Drop:** @hello-pangea/dnd
+
+## Cài đặt local
 
 ```bash
+# 1. Clone repo
+git clone <repo-url>
+cd content-planner-app
+
+# 2. Cài dependencies
+npm install
+
+# 3. Tạo file môi trường
+cp .env.example .env.local
+# Điền NEXT_PUBLIC_SUPABASE_URL và NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+# 4. Chạy dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Mở [http://localhost:3000](http://localhost:3000) trên trình duyệt.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Cấu trúc project
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/
+├── (auth)/login & signup   # Trang xác thực
+├── dashboard/              # Dashboard chính
+│   ├── page.tsx            # Tổng quan
+│   ├── posts/              # Quản lý bài đăng
+│   ├── analytics/          # Phân tích
+│   ├── pipeline/           # Kanban
+│   ├── calendar/           # Lịch
+│   └── settings/           # Cài đặt kênh
+├── api/facebook-sync/      # API đồng bộ Facebook
+lib/
+├── supabase/               # Client, server, actions
+└── types.ts                # TypeScript types
+proxy.ts                    # Bảo vệ routes (Next.js 16)
+```
 
-## Learn More
+## Được xây dựng bằng Claude Code
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Toàn bộ app được lên kế hoạch và xây dựng với sự hỗ trợ của [Claude Code](https://claude.ai/code) — CLI AI của Anthropic.
