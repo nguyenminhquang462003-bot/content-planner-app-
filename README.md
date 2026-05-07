@@ -1,5 +1,7 @@
 # Content Planner App
 
+🔗 **Live demo:** https://content-planner-app-nu.vercel.app
+
 Dashboard theo dõi và phân tích hiệu quả nội dung đa kênh, được xây dựng bằng Claude Code.
 
 ## Tính năng
